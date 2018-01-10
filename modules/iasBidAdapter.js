@@ -103,6 +103,9 @@ function interpretResponse(serverResponse, request) {
   shallowMerge(commonBidResponse, getPageLevelKeywords(iasResponse));
   commonBidResponse.slots = iasResponse.slots;
   bidResponses.push(commonBidResponse);
+  if (top.postIASResponse) {
+    postIASResponse(iasResponse);
+  }
   return bidResponses;
 
 }
