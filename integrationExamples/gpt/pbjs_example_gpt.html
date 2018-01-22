@@ -231,28 +231,28 @@
 					{
 						key: 'id',
 						val: function(bidResponse) {
-							const match = bidResponse.slots[bidResponse.adUnitCode];
+							var match = bidResponse.slots[bidResponse.adUnitCode];
 							return match.id;
 						}
 					},
 					{
 						key: 'vw',
 						val: function(bidResponse) {
-							const match = bidResponse.slots[bidResponse.adUnitCode];
+							var match = bidResponse.slots[bidResponse.adUnitCode];
 							return match.vw;
 						}
 					},
 					{
 						key: 'grm',
 						val: function(bidResponse) {
-							const match = bidResponse.slots[bidResponse.adUnitCode];
+							var match = bidResponse.slots[bidResponse.adUnitCode];
 							return match.grm;
 						}
 					},
 					{
 						key: 'pub',
 						val: function(bidResponse) {
-							const match = bidResponse.slots[bidResponse.adUnitCode];
+							var match = bidResponse.slots[bidResponse.adUnitCode];
 							return match.pub;
 						}
 					},
@@ -260,7 +260,6 @@
             },
             appnexus: {
                 bidCpmAdjustment: function (bidCpm) {
-                	debugger;
                     return bidCpm * .9;
                 },
                 alwaysUseBid: true, // <-- new field - always send these custom keys for the specified bidder
