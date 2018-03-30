@@ -37,11 +37,11 @@ function stringifySlot(bidRequest) {
 }
 
 function stringifyWindowSize() {
-  return [ window.innerWidth || -1, window.innerHeight || -1].join('.');
+  return [ window.innerWidth || -1, window.innerHeight || -1 ].join('.');
 }
 
 function stringifyScreenSize() {
-  return [ (window.screen && window.screen.width) || -1, (window.screen && window.screen.height) || -1].join('.');
+  return [ (window.screen && window.screen.width) || -1, (window.screen && window.screen.height) || -1 ].join('.');
 }
 
 function buildRequests(bidRequests) {
@@ -59,13 +59,22 @@ function buildRequests(bidRequests) {
   queries.push(['sr', stringifyScreenSize()]);
 
   const queryString = encodeURI(queries.map(qs => qs.join('=')).join('&'));
+  const results = [
+    {
+      method: 'GET',
+      url: IAS_HOST,
+      data: queryString,
+      bidRequest: bidRequests[0]
+    },
+    {
+      method: 'GET',
+      url: IAS_HOST,
+      data: queryString,
+      bidRequest: bidRequests[1]
+    }
+  ];
 
-  return {
-    method: 'GET',
-    url: IAS_HOST,
-    data: queryString,
-    bidRequest: bidRequests[0]
-  }
+  return results;
 }
 
 function getPageLevelKeywords(response) {
@@ -103,11 +112,12 @@ function interpretResponse(serverResponse, request) {
   shallowMerge(commonBidResponse, getPageLevelKeywords(iasResponse));
   commonBidResponse.slots = iasResponse.slots;
   bidResponses.push(commonBidResponse);
+  // commonBidResponse.requestId = commonBidResponse.requestId + '1';
+  // bidResponses.push(commonBidResponse);
   if (top.postIASResponse) {
     postIASResponse(iasResponse);
   }
   return bidResponses;
-
 }
 
 export const spec = {
